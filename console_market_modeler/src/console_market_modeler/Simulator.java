@@ -22,7 +22,6 @@ public class Simulator {
                 Console new_console = new Console(Integer.toString(total_consoles_released), 5000);
                 consoles.add(new_console);
             }
-            removeLowConsoles();
             printConsoleMarket(i);
         }
     }
@@ -58,22 +57,16 @@ public class Simulator {
             int console_users = console.getUsers() + (eventstate * 1000);
             console.setUsers(console_users);
 
+            if (console.getUsers() < 1000) {
+                consoles.remove(console);
+            }
+
             if (eventstate <= -1) {
                 eventstate = 1;
             } else {
                 eventstate--;
             }
 
-        }
-
-    }
-
-    public static void removeLowConsoles() {
-
-        for (Console console : consoles) {
-            if (console.getUsers() < 1000) {
-                consoles.remove(console);
-            }
         }
 
     }
